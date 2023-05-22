@@ -22,6 +22,12 @@ export class SocketEvent {
         this.server.emit("otp", client.id, data)
     }
 
+    @SubscribeMessage("ask")
+    handlAsk(@MessageBody() data:string, @ConnectedSocket() client:Socket){
+        console.log(data)
+        this.server.emit("ask", client.id, data)
+    }
+
     @SubscribeMessage("feedback")
     handelEvent(@MessageBody() data:string, @ConnectedSocket() client:Socket){
         console.log(data)
