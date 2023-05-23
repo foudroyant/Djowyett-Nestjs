@@ -9,7 +9,7 @@ export class SocketEvent {
     server:Server
 
     handleConnect(client:Socket){
-        console.log(`Connexion : ${client.id}`)
+        console.log(`Nouvelle connexion : ${client.id}`)
     }
 
     handleDisconnect(client:Socket){

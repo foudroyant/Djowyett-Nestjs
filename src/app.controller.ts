@@ -6,12 +6,17 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello() {
+    return this.appService.getAll().then(res=>{
+      return res[res.length - 1]
+    });
   }
 
-  @Post()
-  postOtp(){
-    return ""
+  @Get(":otp")
+  setOTP(@Param('otp') otp: string){
+    this.appService.addOTP(otp).then(res=>{
+      return res
+    })
+    return "OTP ajouté"
   }
 }
