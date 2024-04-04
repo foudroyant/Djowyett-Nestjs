@@ -9,6 +9,7 @@ import { Post } from './entities/post.entity';
 import { getFirestore, collection, addDoc, getDocs, doc, setDoc } from "firebase/firestore";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,7 +18,8 @@ const firebaseConfig = {
   projectId: "djowyett",
   storageBucket: "djowyett.appspot.com",
   messagingSenderId: "478289729883",
-  appId: "1:478289729883:web:5ddcc13846b3074db2627e"
+  appId: "1:478289729883:web:5ddcc13846b3074db2627e",
+  databaseURL: "https://djowyett-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 
 // Initialize Firebase
@@ -31,6 +33,15 @@ export class AppService {
 
   getHello(): string {
     return this.otp;
+  }
+
+  visiteDomaine(id, name, date){
+      const db = getDatabase();
+      set(ref(db, 'visites/'+Date.now().toString()), {
+        domaine: name,
+        date: date,
+        id : id
+      });
   }
 
   async getAll(){

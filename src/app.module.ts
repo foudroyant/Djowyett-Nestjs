@@ -4,6 +4,10 @@ import { AppService } from './app.service';
 import { SocketModule } from './socket/socket.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConnectionOptions } from 'typeorm';
+import { DatabaseModule } from './database/database.module';
+import { DomainesModule } from './domaines/domaines.module';
+import { DomainesService } from './domaines/domaines.service';
+import { PrefAlerteModule } from './pref-alerte/pref-alerte.module';
 
 @Module({
   imports: [SocketModule, TypeOrmModule.forRoot({
@@ -11,8 +15,9 @@ import { ConnectionOptions } from 'typeorm';
     database: 'database.sqlite',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
-  } as ConnectionOptions),],
+  } as ConnectionOptions), DatabaseModule, DomainesModule, PrefAlerteModule,],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, DomainesService],
+  exports : []
 })
 export class AppModule {}
